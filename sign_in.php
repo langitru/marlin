@@ -84,7 +84,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/db/config_db.php";
 
   <body class="text-center">
 
-    <form class="form-signin" role="form" action="/sign_in_action.php" method="POST">
+    <form class="form-signin" role="form" action="/action.php" method="POST">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="name" name="name" id="inputEmail" class="form-control" placeholder="Name" required autofocus>

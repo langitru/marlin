@@ -84,7 +84,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/db/config_db.php";
 
   <body class="text-center">
 
-    <form class="form-signin" role="form" action="sign_up_action.php" method="POST">
+    <form class="form-signin" role="form" action="action.php" method="POST">
       <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 
       <label for="inputName" class="sr-only">Name</label>

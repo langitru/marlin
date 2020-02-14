@@ -75,7 +75,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/db/config_db.php";
     <h1>Hello 
       <?php 
         if(isset($_SESSION['logged_user'])){
-          echo $_SESSION['logged_user']->name;
+          echo $_SESSION['logged_user'];
         }else{echo 'Gost';}
       ?>
     </h1>
