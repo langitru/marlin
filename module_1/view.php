@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="ru">
   <head>
@@ -29,10 +30,6 @@
 
       body {
         padding-top: 5rem;
-
-      }
-      p {
-      font-size: 1.5rem;    
       }
       .starter-template {
         padding: 3rem 1.5rem;
@@ -44,7 +41,7 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Marlin Academy</a>
+  <a class="navbar-brand" href="/">Marlin Academy</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -52,7 +49,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/module_1/index.php">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -65,12 +62,31 @@
 <main role="main" class="container">
 
   <div class="starter-template">
-    <h1>Welcom to Marlin Academy</h1>
+    <h1>MODULE_1</h1>
 
-    <p><a href="test_1/index.php">test 1</a></p>
-    <p><a href="mvc/index.php">mvc</a></p>
-    <p><a href="module_1/index.php">module 1</a></p>
-    
+    <table class="table">
+      <a href="#" class="btn btn-success">Add post</a>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($posts as $post):?>
+        <tr>
+          <th scope="row"><?= $post['id'];?></th>
+          <td><?= $post['title'];?></td>
+          <td>
+            <a href="#" class="btn btn-warning">Edit</a>
+            <a href="#" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        <?php endforeach;?>
+
+      </tbody>
+    </table>
   </div>
 
 </main><!-- /.container -->

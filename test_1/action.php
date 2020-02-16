@@ -3,7 +3,7 @@
 
 function registration($post){
 
-  require_once $_SERVER['DOCUMENT_ROOT']."/db/config_db.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/test_1/db/config_db.php";
   if (isset($post['do_sign_up'])) {
    // регистрируем
     $errors = array();
@@ -31,7 +31,7 @@ function registration($post){
       $statement->bindParam(":join_date", time());
       $statement->execute();
 
-      header('location: /');
+      header('location: /test_1/index.php');
     } 
     else {
       echo '<div style="color:red;">'.array_shift($errors).'</div><hr>';
@@ -41,7 +41,7 @@ function registration($post){
 }
 
 function autorization($post){
-  require_once $_SERVER['DOCUMENT_ROOT']."/db/config_db.php";
+  require_once $_SERVER['DOCUMENT_ROOT']."/test_1/db/config_db.php";
   if (isset($post['do_sign_in'])) {
       $errors = array();
 
@@ -55,7 +55,7 @@ function autorization($post){
         if (password_verify($post['password'], $user['password'])) {
             //логиним
             $_SESSION['logged_user'] = $user['name'];
-            header('location: /');
+            header('location: /test_1/index.php');
         } else {
             $errors[] = 'Пароль введен не верно';
             }
