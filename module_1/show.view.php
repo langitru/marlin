@@ -1,3 +1,13 @@
+<?php
+
+include 'helper.php';
+$db = include 'database/start.php';
+
+
+$post = $db->getOne('posts', $_GET['id']);
+// dd($post);
+?>
+
 
 <!doctype html>
 <html lang="ru">
@@ -62,31 +72,8 @@
 <main role="main" class="container">
 
   <div class="starter-template">
-    <h1>MODULE_1</h1>
-
-    <table class="table">
-      <a href="create.php" class="btn btn-success">Add post</a>
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach($posts as $post):?>
-        <tr>
-          <th scope="row"><?= $post['id'];?></th>
-          <td><a href="/module_1/show.view.php?id=<?= $post['id'];?>"><?= $post['title'];?></a></td>
-          <td>
-            <a href="/module_1/edit.php?id=<?= $post['id'];?>" class="btn btn-warning">Edit</a>
-            <a href="/module_1/delete.php?id=<?= $post['id'];?>" class="btn btn-danger" onclick="return confirm('Вы действительно ходите удалить запись?')">Delete</a>
-          </td>
-        </tr>
-        <?php endforeach;?>
-
-      </tbody>
-    </table>
+    <h1><?= $post['title'];?></h1>
+	
   </div>
 
 </main><!-- /.container -->

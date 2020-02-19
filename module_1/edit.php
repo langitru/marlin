@@ -1,3 +1,13 @@
+<?php
+
+include 'helper.php';
+$db = include 'database/start.php';
+
+
+$post = $db->getOne('posts', $_GET['id']);
+
+?>
+
 
 <!doctype html>
 <html lang="ru">
@@ -60,34 +70,23 @@
 </nav>
 
 <main role="main" class="container">
+  <div class="col-8 offset-2">
+    <div class="starter-template">
+      <h1>Edit post </h1>
 
-  <div class="starter-template">
-    <h1>MODULE_1</h1>
-
-    <table class="table">
-      <a href="create.php" class="btn btn-success">Add post</a>
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach($posts as $post):?>
-        <tr>
-          <th scope="row"><?= $post['id'];?></th>
-          <td><a href="/module_1/show.view.php?id=<?= $post['id'];?>"><?= $post['title'];?></a></td>
-          <td>
-            <a href="/module_1/edit.php?id=<?= $post['id'];?>" class="btn btn-warning">Edit</a>
-            <a href="/module_1/delete.php?id=<?= $post['id'];?>" class="btn btn-danger" onclick="return confirm('Вы действительно ходите удалить запись?')">Delete</a>
-          </td>
-        </tr>
-        <?php endforeach;?>
-
-      </tbody>
-    </table>
+      <form action="/module_1/update.php" method="POST">
+        <div class="form-group row">
+        <input type="hidden" value="<?= $post['id'];?>" name="id" >
+          <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="title" value="<?= $post['title'];?>">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-warning">Save post</button>
+      </form>
+    </div>
   </div>
+    
 
 </main><!-- /.container -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

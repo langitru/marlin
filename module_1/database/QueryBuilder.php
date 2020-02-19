@@ -21,6 +21,14 @@ class QueryBuilder
 	  return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getOne($table, $id)
+	{
+		$sql = "SELECT * FROM {$table} WHERE id=:id";
+		$statement = $this->pdo->prepare($sql);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
+		return $statement->fetch(PDO::FETCH_ASSOC);
+	}
 	public function create($table, $data)
 	{
 		$keys = implode(', ', array_keys($data));
@@ -31,5 +39,36 @@ class QueryBuilder
 		$statement = $this->pdo->prepare($sql);
 		$statement->execute($data);
 	}
+
+	public function update($table, $data)
+	{
+		// $keys = implode(', ', array_keys($data));
+		// $tags = ":".implode(', :', array_keys($data));
+
+		$keys = array_keys($data);
+		$string ='';
+		$id = $data['id'];
+		foreach($keys as $key){
+			if ($key == 'id'){
+				continue;
+			}
+			$string .= $key.'=:'.$key.',';
+		}
+		// dd();
+		$keys = rtrim($string, ',');
+		// $sql = "UPDATE {$table} SET title=:title ({$keys}) WHERE id=:id ({$tags})";
+		$sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
+		// dd($sql);
+		$statement = $this->pdo->prepare($sql);
+		$statement->bindValue(':id', $id);
+		$statement->execute($data);
+	}	
+	public function deleteOne($table, $id)
+	{
+		$sql = "DELETE FROM {$table} WHERE id=:id";
+		$statement = $this->pdo->prepare($sql);
+		$statement->bindValue(':id', $id);
+		$statement->execute();
+	}	
 
 }
