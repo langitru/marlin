@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="ru">
   <head>
@@ -69,7 +71,7 @@
 
     <p><a href="test_1/index.php">test 1</a></p>
     <p><a href="mvc/index.php">mvc</a></p>
-    <p><a href="module_1/index.php">module 1</a></p>
+    <p><a href="module_one">module one</a></p>
     
   </div>
 
