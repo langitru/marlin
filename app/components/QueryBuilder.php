@@ -41,11 +41,9 @@ class QueryBuilder
 
 		$statement = $this->pdo->prepare($sql);
 		if ($statement->execute($data)){
-			$_SESSION['status'] = 'success';
-			$_SESSION['action'] = 'created';	
+			$_SESSION['status'] = '200-1';
 		} else {
-			$_SESSION['status'] = 'danger';
-			$_SESSION['action'] = 'created';
+			$_SESSION['status'] = '403-1';
 		}
 	}
 
@@ -66,11 +64,9 @@ class QueryBuilder
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
 		if ($statement->execute($data)) {
-			$_SESSION['status'] = 'success';
-			$_SESSION['action'] = 'updated';	
+			$_SESSION['status'] = '200-2';
 		} else {
-			$_SESSION['status'] = 'danger';
-			$_SESSION['action'] = 'updated';
+			$_SESSION['status'] = '403-2';
 		}		
 	}
 		
@@ -80,11 +76,9 @@ class QueryBuilder
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
 		if ($statement->execute()) {
-			$_SESSION['status'] = 'success';
-			$_SESSION['action'] = 'deleted';	
+			$_SESSION['status'] = '200-3';
 		} else {
-			$_SESSION['status'] = 'danger';
-			$_SESSION['action'] = 'deleted';
+			$_SESSION['status'] = '403-3';
 		}				
 	}	
 }
