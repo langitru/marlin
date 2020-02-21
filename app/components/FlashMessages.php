@@ -13,7 +13,7 @@ class flashMessages
 				'deleted' => 'Post successfully deleted!',
 			],
 			'danger'  => [
-				'created' => 'Post not deleted!',
+				'created' => 'Post not created!',
 				'updated' => 'Post not updated!',
 				'deleted' => 'Post not deleted!',
 			],

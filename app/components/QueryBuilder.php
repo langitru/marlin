@@ -40,10 +40,13 @@ class QueryBuilder
 		$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
 
 		$statement = $this->pdo->prepare($sql);
-		$statement->execute($data);
-
-		$_SESSION['status'] = 'success';
-		$_SESSION['action'] = 'created';
+		if ($statement->execute($data)){
+			$_SESSION['status'] = 'success';
+			$_SESSION['action'] = 'created';	
+		} else {
+			$_SESSION['status'] = 'danger';
+			$_SESSION['action'] = 'created';
+		}
 	}
 
 	public function update($table, $data)
@@ -62,10 +65,13 @@ class QueryBuilder
 		$sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		$statement->execute($data);
-
-		$_SESSION['status'] = 'success';
-		$_SESSION['action'] = 'updated';		
+		if ($statement->execute($data)) {
+			$_SESSION['status'] = 'success';
+			$_SESSION['action'] = 'updated';	
+		} else {
+			$_SESSION['status'] = 'danger';
+			$_SESSION['action'] = 'updated';
+		}		
 	}
 		
 	public function deleteOne($table, $id)
@@ -73,10 +79,12 @@ class QueryBuilder
 		$sql = "DELETE FROM {$table} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		$statement->execute();
-
-		$_SESSION['status'] = 'success';
-		$_SESSION['action'] = 'deleted';			
+		if ($statement->execute()) {
+			$_SESSION['status'] = 'success';
+			$_SESSION['action'] = 'deleted';	
+		} else {
+			$_SESSION['status'] = 'danger';
+			$_SESSION['action'] = 'deleted';
+		}				
 	}	
-
 }
