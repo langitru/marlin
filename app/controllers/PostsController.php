@@ -10,7 +10,7 @@ class PostsController
 	
 	function __construct($action, $id)
 	{
-
+		include __DIR__ . '/../components/FlashMessages.php';
 		$this->db = include __DIR__ . '/../../db/start.php';
 		$this->id = $id;
 		$this->$action();
@@ -18,9 +18,13 @@ class PostsController
 
 	public function index()
 	{
+
 		$posts = $this->db->getAll('posts');
 		
 		include __DIR__ . '/../views/posts/index.php';
+		
+		unset($_SESSION['status']);
+		unset($_SESSION['action']);
 	}
 
 	public function create()
@@ -39,7 +43,7 @@ class PostsController
 				// 'content' => 'qwe',
 			],
 		);
-		header('location: /home');
+		header('location: /');
 	}
 
 	public function show() 

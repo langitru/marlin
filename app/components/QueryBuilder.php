@@ -41,6 +41,9 @@ class QueryBuilder
 
 		$statement = $this->pdo->prepare($sql);
 		$statement->execute($data);
+
+		$_SESSION['status'] = 'success';
+		$_SESSION['action'] = 'created';
 	}
 
 	public function update($table, $data)
@@ -60,6 +63,9 @@ class QueryBuilder
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
 		$statement->execute($data);
+
+		$_SESSION['status'] = 'success';
+		$_SESSION['action'] = 'updated';		
 	}
 		
 	public function deleteOne($table, $id)
@@ -68,6 +74,9 @@ class QueryBuilder
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
 		$statement->execute();
+
+		$_SESSION['status'] = 'success';
+		$_SESSION['action'] = 'deleted';			
 	}	
 
 }
