@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="ru">
   <head>
@@ -7,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
 
-    <title>Module 1</title>
+    <title>Edit post</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -31,10 +29,6 @@
 
       body {
         padding-top: 5rem;
-
-      }
-      p {
-      font-size: 1.5rem;    
       }
       .starter-template {
         padding: 3rem 1.5rem;
@@ -46,7 +40,7 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">Marlin Academy</a>
+  <a class="navbar-brand" href="/">Marlin Academy</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -54,7 +48,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/module_1/index.php">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -65,15 +59,23 @@
 </nav>
 
 <main role="main" class="container">
+  <div class="col-8 offset-2">
+    <div class="starter-template">
+      <h1>Edit post </h1>
 
-  <div class="starter-template">
-    <h1>Welcom to Marlin Academy</h1>
-
-    <p><a href="test_1/index.php">test 1</a></p>
-    <p><a href="mvc/index.php">mvc</a></p>
-    <p><a href="module_one">module one</a></p>
-    
+      <form action="/postupdate" method="POST">
+        <div class="form-group row">
+        <input type="hidden" value="<?= $post['id'];?>" name="id" >
+          <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="title" value="<?= $post['title'];?>">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-warning">Save post</button>
+      </form>
+    </div>
   </div>
+    
 
 </main><!-- /.container -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

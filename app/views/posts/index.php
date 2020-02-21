@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
 
-    <title>Module 1</title>
+    <title>All Posts</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -49,8 +49,11 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/module_one">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/contacts">Contacts <span class="sr-only">(current)</span></a>
+      </li>      
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -62,10 +65,10 @@
 <main role="main" class="container">
 
   <div class="starter-template">
-    <h1>MODULE_1</h1>
+    <h1>All posts</h1>
 
     <table class="table">
-      <a href="create.php" class="btn btn-success">Add post</a>
+      <a href="/create" class="btn btn-success">Add post</a>
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -77,10 +80,10 @@
         <?php foreach($posts as $post):?>
         <tr>
           <th scope="row"><?= $post['id'];?></th>
-          <td><a href="/module_1/show.view.php?id=<?= $post['id'];?>"><?= $post['title'];?></a></td>
+          <td><a href="/postshow?id=<?= $post['id'];?>"><?= $post['title'];?></a></td>
           <td>
-            <a href="/module_1/edit.php?id=<?= $post['id'];?>" class="btn btn-warning">Edit</a>
-            <a href="/module_1/delete.php?id=<?= $post['id'];?>" class="btn btn-danger" onclick="return confirm('Вы действительно ходите удалить запись?')">Delete</a>
+            <a href="/postedit?id=<?= $post['id'];?>" class="btn btn-warning">Edit</a>
+            <a href="/postdelete?id=<?= $post['id'];?>" class="btn btn-danger" onclick="return confirm('Вы действительно ходите удалить запись?')">Delete</a>
           </td>
         </tr>
         <?php endforeach;?>

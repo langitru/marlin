@@ -49,7 +49,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/module_1/index.php">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -64,7 +64,7 @@
     <div class="starter-template">
       <h1>Add post</h1>
 
-      <form action="store.php" method="POST">
+      <form action="/postnew" method="POST">
         <div class="form-group row">
           <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
           <div class="col-sm-10">

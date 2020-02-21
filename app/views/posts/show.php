@@ -1,14 +1,3 @@
-<?php
-
-include 'helper.php';
-$db = include 'database/start.php';
-
-
-$post = $db->getOne('posts', $_GET['id']);
-
-?>
-
-
 <!doctype html>
 <html lang="ru">
   <head>
@@ -59,7 +48,7 @@ $post = $db->getOne('posts', $_GET['id']);
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/module_1/index.php">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -70,23 +59,11 @@ $post = $db->getOne('posts', $_GET['id']);
 </nav>
 
 <main role="main" class="container">
-  <div class="col-8 offset-2">
-    <div class="starter-template">
-      <h1>Edit post </h1>
 
-      <form action="/module_1/update.php" method="POST">
-        <div class="form-group row">
-        <input type="hidden" value="<?= $post['id'];?>" name="id" >
-          <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" name="title" value="<?= $post['title'];?>">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-warning">Save post</button>
-      </form>
-    </div>
+  <div class="starter-template">
+    <h1><?= $post['title'];?></h1>
+	
   </div>
-    
 
 </main><!-- /.container -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
