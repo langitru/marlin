@@ -40,11 +40,8 @@ class QueryBuilder
 		$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
 
 		$statement = $this->pdo->prepare($sql);
-		if ($statement->execute($data)){
-			$_SESSION['status'] = '200-1';
-		} else {
-			$_SESSION['status'] = '403-1';
-		}
+		$statement->execute($data);
+		return true;
 	}
 
 	public function update($table, $data)
@@ -63,11 +60,8 @@ class QueryBuilder
 		$sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		if ($statement->execute($data)) {
-			$_SESSION['status'] = '200-2';
-		} else {
-			$_SESSION['status'] = '403-2';
-		}		
+		$statement->execute($data);
+		return true;
 	}
 		
 	public function deleteOne($table, $id)
@@ -75,10 +69,7 @@ class QueryBuilder
 		$sql = "DELETE FROM {$table} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		if ($statement->execute()) {
-			$_SESSION['status'] = '200-3';
-		} else {
-			$_SESSION['status'] = '403-3';
-		}				
+		$statement->execute();
+		return true;
 	}	
 }

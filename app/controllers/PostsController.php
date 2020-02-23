@@ -24,21 +24,21 @@ class PostsController
 		
 		include __DIR__ . '/../views/posts/index.php';
 
-		unset($_SESSION['status']);
+		FlashMessages::cleanStatus();
 	}
 
 	public function create()
 	{
 
 		include __DIR__ . '/../views/posts/create.php';
-		unset($_SESSION['status']);
+		FlashMessages::cleanStatus();
 	}
 
 	public function new()
 	{
 		if (Validator::title($_POST['title'])){
 
-			$this->db->create(
+			$post = $this->db->create(
 				'posts', 
 				[
 					'title' => $_POST['title'],
@@ -46,10 +46,15 @@ class PostsController
 					// 'content' => 'qwe',
 				],
 			);
+			if ($post){
+				FlashMessages::pushStatus('200-1');
+			} else {
+				FlashMessages::pushStatus('403-1');
+			}
+
 			header('location: /');
 		} else {
-			$_SESSION['status'] = '411-1';
-			// dd($_SERVER);
+			FlashMessages::pushStatus('411-1');
 			header("location: {$_SERVER['HTTP_REFERER']}");
 		}
 
@@ -68,16 +73,22 @@ class PostsController
 
 		$post = $this->db->getOne('posts', $this->id);
 		include __DIR__ . '/../views/posts/edit.php';
-		unset($_SESSION['status']);
+		FlashMessages::cleanStatus();
 	}
 
 	public function update()
 	{
 		if (Validator::title($_POST['title'])){
-			$this->db->update('posts', $_POST);
+			$post = $this->db->update('posts', $_POST);
+			if ($post) {
+				FlashMessages::pushStatus('200-2');
+			} else {
+				FlashMessages::pushStatus('403-2');
+			}
+
 			header('location: /');
 		} else {
-			$_SESSION['status'] = '411-1';
+			FlashMessages::pushStatus('411-1');
 			header("location: {$_SERVER['HTTP_REFERER']}");
 		}
 	}
@@ -86,7 +97,11 @@ class PostsController
 	{
 
 		$post = $this->db->deleteOne('posts', $this->id);
-
+		if ($post) {
+			FlashMessages::pushStatus('200-3');
+		} else {
+			FlashMessages::pushStatus('403-3');
+		}	
 		header('location: /');
 	}
 
