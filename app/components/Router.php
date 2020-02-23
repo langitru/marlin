@@ -1,9 +1,13 @@
 <?php
-include __DIR__ . '/../helpers/dd.php';
+
 /**
-*
-*
-*/
+ Router   - компонент для маршрутизации запросов пользователя;
+
+ $routes  - ассоциативный массив с маршрутами;
+ 
+ */
+
+// include __DIR__ . '/../helpers/dd.php'; 
 class Router 
 {
 	private $routes = 
@@ -21,6 +25,7 @@ class Router
 
 	public function __construct()
 	{
+
 		$this->checkURI();
 	}
 
@@ -50,7 +55,6 @@ class Router
 
 			// die;
 		}
-
 		if (array_key_exists($route, $this->routes)){
 
 			include __DIR__ . '/../controllers/PostsController.php'; 
@@ -59,7 +63,7 @@ class Router
 		  	exit;
 		} else {
 		  	include __DIR__ . '/../views/404.php';
-		}
+		}		
 	}
 }
 

@@ -36,7 +36,7 @@ class PostsController
 
 	public function new()
 	{
-		if (Validator::title($_POST['title'])){
+		if (Validator::length($_POST['title'])){
 
 			$post = $this->db->create(
 				'posts', 
@@ -78,7 +78,7 @@ class PostsController
 
 	public function update()
 	{
-		if (Validator::title($_POST['title'])){
+		if (Validator::length($_POST['title'])){
 			$post = $this->db->update('posts', $_POST);
 			if ($post) {
 				FlashMessages::pushStatus('200-2');

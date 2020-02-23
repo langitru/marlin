@@ -1,5 +1,14 @@
 <?php
+/**
+ flashMessages - компонент для работы с "flash" сообщениями;
 
+ pushStatus  - записывает в сессию статус сообщения;
+               принимает обязательный параметр типа 'string';
+ cleanStatus - очищает статус сообщения из сессии;
+ show        - показывает сообщение соответствующее статусу записанного в сессию;
+ statusList  - список статусов и сообщений соответствующих статусу;  
+
+ */
 class flashMessages 
 {
 	private static $statusList = [
@@ -13,14 +22,19 @@ class flashMessages
 			'403-3' => 'Post not deleted!',
 			'411-1' => 'Длина заголовка должна быть больше 5 символов',
 	];
+
 	public static function pushStatus($status)
 	{
+
 		$_SESSION['flashMessagesStatus'] = $status;
 	}
+
 	public static function cleanStatus()
 	{
+	
 		unset($_SESSION['flashMessagesStatus']);
 	}	
+
 	public static function show()
 	{	
 

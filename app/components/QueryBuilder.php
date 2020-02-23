@@ -1,5 +1,14 @@
 <?php
+/**
+ QueryBuilder - компонент для работы с базой данных;
 
+ getAll($table)        - получает все записи из таблицы $table;
+ getOne($table, $id)   - получает одну запись $id из таблицы $table;
+ create($table, $data) - создает запись в таблице $table где $data записываемые данные;
+ update($table, $data) - обновляет запись в таблице $table где $data обновляемые данные;
+ deleteOne($table, $id) - удаляет одну запись $id из таблицы $table;
+ 
+ */
 class QueryBuilder 
 {
 	protected $pdo;
