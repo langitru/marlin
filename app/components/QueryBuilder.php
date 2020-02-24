@@ -49,8 +49,12 @@ class QueryBuilder
 		$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
 
 		$statement = $this->pdo->prepare($sql);
-		$statement->execute($data);
-		return true;
+		if ($statement->execute($data)){
+			return true;	
+		} else {
+			return false;	
+		}
+		
 	}
 
 	public function update($table, $data)
@@ -69,8 +73,11 @@ class QueryBuilder
 		$sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		$statement->execute($data);
-		return true;
+		if ($statement->execute($data)){
+			return true;	
+		} else {
+			return false;	
+		}
 	}
 		
 	public function deleteOne($table, $id)
@@ -78,7 +85,10 @@ class QueryBuilder
 		$sql = "DELETE FROM {$table} WHERE id=:id";
 		$statement = $this->pdo->prepare($sql);
 		$statement->bindValue(':id', $id);
-		$statement->execute();
-		return true;
+		if ($statement->execute()){
+			return true;	
+		} else {
+			return false;	
+		}
 	}	
 }
