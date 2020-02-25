@@ -9,7 +9,7 @@
  statusList  - список статусов и сообщений соответствующих статусу;  
 
  */
-class flashMessages 
+class FlashMessages 
 {
 	private static $statusList = [
 			// success

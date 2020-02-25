@@ -9,6 +9,8 @@
  deleteOne($table, $id) - удаляет одну запись $id из таблицы $table;
  
  */
+
+
 class QueryBuilder 
 {
 	protected $pdo;
