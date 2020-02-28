@@ -6,4 +6,3 @@ require '../vendor/autoload.php';
 use MyComponents\Router;
 
 new Router();
-

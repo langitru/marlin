@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
 {
+    public static $files = array (
+        '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'M' => 
         array (
@@ -14,6 +18,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'L' => 
         array (
             'League\\Plates\\' => 14,
+        ),
+        'K' => 
+        array (
+            'Kint\\' => 5,
         ),
         'C' => 
         array (
@@ -33,6 +41,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'League\\Plates\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/plates/src',
+        ),
+        'Kint\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kint-php/kint/src',
         ),
         'Controllers\\' => 
         array (

@@ -8,5 +8,8 @@
 			"MyComponents\\": "app/components/",
 			"Controllers\\": "app/controllers/"
 		}
+	},
+	"require-dev": {
+		"kint-php/kint": "^3.3"
 	}
 }
