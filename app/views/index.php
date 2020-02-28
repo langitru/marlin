@@ -2,17 +2,7 @@
 
 
     <h1>All posts</h1>
-    
-<!--     <?php //if (FlashMessages::show()):?>
-      <div class="box-messages alert alert-success" role="alert">
-        <?php //echo FlashMessages::show();?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    <?php //endif;?>
-
- -->
+    <?= flash()->display();?>
     <table class="table">
       <a href="/create" class="btn btn-success">Add post</a>
       <thead class="thead-dark">

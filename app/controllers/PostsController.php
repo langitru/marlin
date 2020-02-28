@@ -5,8 +5,8 @@
  */
 namespace Controllers;
 use MyComponents\QueryBuilder;
-use MyComponents\Connection;
-use MyComponents\FlashMessages;
+// use MyComponents\Connection;
+use Tamtamchik\SimpleFlash\Flash;
 use MyComponents\Validator;
 use League\Plates\Engine;
 
@@ -55,15 +55,14 @@ class PostsController
 				],
 			);
 			if ($post){
-				FlashMessages::pushStatus('200-1');
+				Flash::message('Пост успешно создан!', 'success');
 			} else {
-				FlashMessages::pushStatus('403-1');
+				Flash::message('Ошибка: Пост не создан!', 'error');
 			}
-
 			header('location: /');
 		} else {
-			FlashMessages::pushStatus('411-1');
-			header("location: {$_SERVER['HTTP_REFERER']}");
+			Flash::message('Заголовок должен быть длинной не менне 5 символов!', 'warning');
+			header("location: /create");
 		}
 
 	}
@@ -88,14 +87,14 @@ class PostsController
 		if (Validator::length($_POST['title'])){
 			$post = $this->db->update('posts', $_POST, $_POST['id']);
 			if ($post) {
-				FlashMessages::pushStatus('200-2');
+				Flash::message('Пост успешно обновлен!', 'success');
 			} else {
-				FlashMessages::pushStatus('403-2');
+				Flash::message('Ошибка: Пост не обновлен!', 'error');
 			}
 
 			header('location: /');
 		} else {
-			FlashMessages::pushStatus('411-1');
+			Flash::message('Заголовок должен быть длинной не менне 5 символов!', 'warning');
 			header("location: {$_SERVER['HTTP_REFERER']}");
 		}
 	}
@@ -105,9 +104,9 @@ class PostsController
 
 		$post = $this->db->deleteOne('posts', $this->id);
 		if ($post) {
-			FlashMessages::pushStatus('200-3');
+			Flash::message('Пост успешно удален!', 'success');
 		} else {
-			FlashMessages::pushStatus('403-3');
+			Flash::message('Ошибка: Пост не удален!', 'error');
 		}	
 		header('location: /');
 	}
