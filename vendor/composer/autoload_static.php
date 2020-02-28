@@ -11,6 +11,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         array (
             'MyComponents\\' => 13,
         ),
+        'L' => 
+        array (
+            'League\\Plates\\' => 14,
+        ),
         'C' => 
         array (
             'Controllers\\' => 12,
@@ -25,6 +29,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'MyComponents\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/components',
+        ),
+        'League\\Plates\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/plates/src',
         ),
         'Controllers\\' => 
         array (

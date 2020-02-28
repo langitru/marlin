@@ -8,46 +8,38 @@ use MyComponents\QueryBuilder;
 use MyComponents\Connection;
 use MyComponents\FlashMessages;
 use MyComponents\Validator;
+use League\Plates\Engine;
 
 class PostsController 
 {
 	private $db;
 	private $id;
+	private $views;
 	
 	function __construct($action, $id)
 	{
-		// include __DIR__ . '/../components/FlashMessages.php';
-		// include __DIR__ . '/../components/Validator.php';
-		// $this->db = require __DIR__ . '/../../db/start.php';
-
-
-
-// require __DIR__ . '/../../config/config.php';
-// require __DIR__ . '/Connection.php';
-
 		$this->db = new QueryBuilder();
-
-
+		$this->views = new Engine('../app/views');
 
 		$this->id = $id;
 		$this->$action();
+		
 	}
 
 	public function index()
 	{
 
 		$posts = $this->db->getAll('posts');
-		// var_dump($posts);die;
-		include __DIR__ . '/../views/posts/index.php';
-
-		FlashMessages::cleanStatus();
+		
+		echo $this->views->render('index', ['posts' => $posts] );
+		// FlashMessages::cleanStatus();
 	}
 
 	public function create()
 	{
 
-		include __DIR__ . '/../views/posts/create.php';
-		FlashMessages::cleanStatus();
+		echo $this->views->render('create');
+		// FlashMessages::cleanStatus();
 	}
 
 	public function new()
@@ -80,16 +72,15 @@ class PostsController
 	{
 
 		$post = $this->db->getOne('posts', $this->id);
-
-		include __DIR__ . '/../views/posts/show.php';		
+		echo $this->views->render('show', ['post' => $post] );		
 	}
 
 	public function edit()
 	{
 
 		$post = $this->db->getOne('posts', $this->id);
-		include __DIR__ . '/../views/posts/edit.php';
-		FlashMessages::cleanStatus();
+		echo $this->views->render('edit', ['post' => $post] );
+		// FlashMessages::cleanStatus();
 	}
 
 	public function update()
@@ -124,6 +115,11 @@ class PostsController
 	public function contacts()
 	{
 
-		include __DIR__ . '/../views/posts/contacts.php';
+		echo $this->views->render('contacts');
+	}
+	public static function Error($numberError)
+	{
+		$views = new Engine('../app/views');
+		echo $views->render($numberError);
 	}
 }

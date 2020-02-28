@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'MyComponents\\' => array($baseDir . '/app/components'),
     'Controllers\\' => array($baseDir . '/app/controllers'),
+    'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
     'Aura\\SqlQuery\\' => array($vendorDir . '/aura/sqlquery/src'),
 );

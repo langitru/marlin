@@ -63,16 +63,10 @@ class Router
 			// die;
 		}
 		if (array_key_exists($route, $this->routes)){
-
-			// include __DIR__ . '/../controllers/PostsController.php';
-			
-			// var_dump($this->routes[$route], $id);die;
 		  	$PostsController = new PostsController($this->routes[$route], $id);
-		  	
-		  	// dd(500);
 		  	exit;
 		} else {
-		  	include __DIR__ . '/../views/404.php';
+			PostsController::Error('404');
 		}		
 	}
 }
