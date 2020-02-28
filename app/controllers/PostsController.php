@@ -3,6 +3,12 @@
 /**
  * 
  */
+namespace Controllers;
+use MyComponents\QueryBuilder;
+use MyComponents\Connection;
+use MyComponents\FlashMessages;
+use MyComponents\Validator;
+
 class PostsController 
 {
 	private $db;
@@ -10,9 +16,19 @@ class PostsController
 	
 	function __construct($action, $id)
 	{
-		include __DIR__ . '/../components/FlashMessages.php';
-		include __DIR__ . '/../components/Validator.php';
-		$this->db = include __DIR__ . '/../../db/start.php';
+		// include __DIR__ . '/../components/FlashMessages.php';
+		// include __DIR__ . '/../components/Validator.php';
+		// $this->db = require __DIR__ . '/../../db/start.php';
+
+
+
+// require __DIR__ . '/../../config/config.php';
+// require __DIR__ . '/Connection.php';
+
+		$this->db = new QueryBuilder();
+
+
+
 		$this->id = $id;
 		$this->$action();
 	}
@@ -21,7 +37,7 @@ class PostsController
 	{
 
 		$posts = $this->db->getAll('posts');
-		
+		// var_dump($posts);die;
 		include __DIR__ . '/../views/posts/index.php';
 
 		FlashMessages::cleanStatus();
@@ -38,7 +54,7 @@ class PostsController
 	{
 		if (Validator::length($_POST['title'])){
 
-			$post = $this->db->create(
+			$post = $this->db->insert(
 				'posts', 
 				[
 					'title' => $_POST['title'],
@@ -79,7 +95,7 @@ class PostsController
 	public function update()
 	{
 		if (Validator::length($_POST['title'])){
-			$post = $this->db->update('posts', $_POST);
+			$post = $this->db->update('posts', $_POST, $_POST['id']);
 			if ($post) {
 				FlashMessages::pushStatus('200-2');
 			} else {

@@ -9,6 +9,8 @@
  statusList  - список статусов и сообщений соответствующих статусу;  
 
  */
+namespace MyComponents;
+
 class FlashMessages 
 {
 	private static $statusList = [

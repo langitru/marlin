@@ -63,14 +63,14 @@
   <div class="col-8 offset-2">
     <div class="starter-template">
       <h1>Add post</h1>
-      <?php if (flashMessages::show()):?>
+      <!-- <?php //if (flashMessages::show()):?>
         <div class="box-messages alert alert-success" role="alert">
-          <?php echo flashMessages::show();?>
+          <?php //echo flashMessages::show();?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-      <?php endif;?>
+      <?php //endif;?> -->
       <form action="/postnew" method="POST">
         <div class="form-group row">
           <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>

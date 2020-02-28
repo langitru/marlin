@@ -6,7 +6,7 @@ return [
 		"dbname" => "marlin_module_1",
 		"charset" => "utf8",
 		"username" => "root",
-		"password" => "",
+		"password" => ""
 
 	],
 ];

@@ -9,6 +9,9 @@
  phone($phone)   - проверяет телефон на корректностноть ввода;
  http($host)     - проверяет URL на корректностноть ввода;
  */
+
+namespace MyComponents;
+
 class Validator 
 {
 

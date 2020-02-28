@@ -9,88 +9,165 @@
  deleteOne($table, $id) - удаляет одну запись $id из таблицы $table;
  
  */
-
+namespace MyComponents;
+use PDO;
+use Aura\SqlQuery\QueryFactory;
+// use MyComponents\Connection;
 
 class QueryBuilder 
 {
-	protected $pdo;
+	private $pdo;
+	private $queryFactory;
 
-	public function __construct($pdo)
+	public function __construct()
 	{
-
-		$this->pdo = $pdo;
+		
+		$this->queryFactory = new QueryFactory('mysql'); 
+		$this->pdo = new PDO(
+			"mysql:host=localhost;dbname=marlin_module_1;charset=utf8;", 
+			"root", 
+			"");
 	}
 	
 	public function getAll($table)
 	{
-	  
-	  // 2. Выполнить запрос к БД
-	  $sql = "SELECT * from {$table}";
-	  $statement = $this->pdo->prepare($sql); // подготовить запрос
-	  $statement->execute(); // выполниь запрос
+		$select = $this->queryFactory->newSelect();
+		$select->cols(['*'])->from($table);
+		// prepare the statment
+		$sth = $this->pdo->prepare($select->getStatement());
+		// bind the values and execute
+		$sth->execute($select->getBindValues());
+		// get the results back as an associative array
+		$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
 
-	  // 3. Получить массив данных
-	  return $statement->fetchAll(PDO::FETCH_ASSOC);
+		// $sql = "SELECT * from {$table}";
+		// $statement = $this->pdo->prepare($sql); // подготовить запрос
+		// $statement->execute(); // выполниь запрос
+		// return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function getOne($table, $id)
 	{
 
-		$sql = "SELECT * FROM {$table} WHERE id=:id";
-		$statement = $this->pdo->prepare($sql);
-		$statement->bindValue(':id', $id);
-		$statement->execute();
-		return $statement->fetch(PDO::FETCH_ASSOC);
+		$select = $this->queryFactory->newSelect();
+		$select->cols(['*'])
+			   ->from($table)
+			   ->where('id = :id')
+		       ->BindValue('id' , $id);
+		$sth = $this->pdo->prepare($select->getStatement());
+		$sth->execute($select->getBindValues());
+		$result = $sth->fetch(PDO::FETCH_ASSOC);
+		return $result;
+
+
+
+   
+
+		// $sql = "SELECT * FROM {$table} WHERE id=:id";
+		// $statement = $this->pdo->prepare($sql);
+		// var_dump($statement);die;
+		// $statement->bindValue(':id', $id);
+		// $statement->execute();
+		// return $statement->fetch(PDO::FETCH_ASSOC);
 	}
 
-	public function create($table, $data)
+	public function insert($table, $data)
 	{
-		$keys = implode(', ', array_keys($data));
-		$tags = ":".implode(', :', array_keys($data));
+		$insert = $this->queryFactory->newInsert();
+		$insert 
+		    ->into($table)                   // INTO this table
+		    ->cols($data);
 
-		$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
-
-		$statement = $this->pdo->prepare($sql);
-		if ($statement->execute($data)){
+		$sth = $this->pdo->prepare($insert->getStatement());
+		if ($sth->execute($insert->getBindValues())){
 			return true;	
 		} else {
 			return false;	
 		}
+
+
+		// $keys = implode(', ', array_keys($data));
+		// $tags = ":".implode(', :', array_keys($data));
+
+		// $sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
+
+		// $statement = $this->pdo->prepare($sql);
+		// if ($statement->execute($data)){
+		// 	return true;	
+		// } else {
+		// 	return false;	
+		// }
 		
 	}
 
-	public function update($table, $data)
+	public function update($table, $data, $id)
 	{
+		unset($data['id']);
 
-		$keys = array_keys($data);
-		$string ='';
-		$id = $data['id'];
-		foreach($keys as $key){
-			if ($key == 'id'){
-				continue;
-			}
-			$string .= $key.'=:'.$key.',';
-		}
-		$keys = rtrim($string, ',');
-		$sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
-		$statement = $this->pdo->prepare($sql);
-		$statement->bindValue(':id', $id);
-		if ($statement->execute($data)){
+		$update = $this->queryFactory->newUpdate();
+		$update->table($table)           // update this table
+		       ->cols($data)
+			   ->where('id = :id')
+			   ->BindValue('id' , $id);
+
+		$sth = $this->pdo->prepare($update->getStatement());
+		if ($sth->execute($update->getBindValues()))
+		{
 			return true;	
 		} else {
 			return false;	
 		}
+
+
+
+
+		// $keys = array_keys($data);
+		// $string ='';
+		// $id = $data['id'];
+		// foreach($keys as $key){
+		// 	if ($key == 'id'){
+		// 		continue;
+		// 	}
+		// 	$string .= $key.'=:'.$key.',';
+		// }
+		// $keys = rtrim($string, ',');
+		// $sql = "UPDATE {$table} SET {$keys} WHERE id=:id";
+		// $statement = $this->pdo->prepare($sql);
+		// var_dump($sql);die; //"UPDATE posts SET title=:title WHERE id=:id" 
+		// $statement->bindValue(':id', $id);
+		// if ($statement->execute($data)){
+		// 	return true;	
+		// } else {
+		// 	return false;	
+		// }
 	}
 		
 	public function deleteOne($table, $id)
 	{
-		$sql = "DELETE FROM {$table} WHERE id=:id";
-		$statement = $this->pdo->prepare($sql);
-		$statement->bindValue(':id', $id);
-		if ($statement->execute()){
+
+		$delete = $this->queryFactory->newDelete();
+
+		$delete->from($table)                   // FROM this table
+		       ->where('id = :id')
+		       ->BindValue('id' , $id);
+
+		$sth = $this->pdo->prepare($delete->getStatement());
+
+		if ($sth->execute($delete->getBindValues()))
+		{
 			return true;	
 		} else {
 			return false;	
 		}
+
+		// $sql = "DELETE FROM {$table} WHERE id=:id";
+		// $statement = $this->pdo->prepare($sql);
+		// $statement->bindValue(':id', $id);
+		// if ($statement->execute()){
+		// 	return true;	
+		// } else {
+		// 	return false;	
+		// }
 	}	
 }

@@ -8,6 +8,13 @@
  */
 
 // include __DIR__ . '/../helpers/dd.php'; 
+
+
+
+namespace MyComponents;
+
+use Controllers\PostsController;
+
 class Router 
 {
 	private $routes = 
@@ -57,8 +64,11 @@ class Router
 		}
 		if (array_key_exists($route, $this->routes)){
 
-			include __DIR__ . '/../controllers/PostsController.php'; 
+			// include __DIR__ . '/../controllers/PostsController.php';
+			
+			// var_dump($this->routes[$route], $id);die;
 		  	$PostsController = new PostsController($this->routes[$route], $id);
+		  	
 		  	// dd(500);
 		  	exit;
 		} else {
