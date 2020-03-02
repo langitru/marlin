@@ -17,14 +17,11 @@ class PostsController
 	private $params;
 	private $views;
 	
-	function __construct($action, $params)
+	function __construct()
 	{
+
 		$this->db = new QueryBuilder();
 		$this->views = new Engine('../app/views');
-
-		$this->params = $params;
-		$this->$action();
-		
 	}
 
 	public function index()
@@ -65,19 +62,18 @@ class PostsController
 
 	}
 
-	public function show() 
+	public function show($params) 
 	{
 
-		$post = $this->db->getOne('posts', $this->params['id']);
+		$post = $this->db->getOne('posts', $params['id']);
 		echo $this->views->render('show', ['post' => $post] );		
 	}
 
-	public function edit()
+	public function edit($params)
 	{
 
-		$post = $this->db->getOne('posts', $this->params['id']);
+		$post = $this->db->getOne('posts', $params['id']);
 		echo $this->views->render('edit', ['post' => $post] );
-		// FlashMessages::cleanStatus();
 	}
 
 	public function update()
@@ -97,10 +93,10 @@ class PostsController
 		}
 	}
 
-	public function delete()
+	public function delete($params)
 	{
 
-		$post = $this->db->deleteOne('posts', $this->params['id']);
+		$post = $this->db->deleteOne('posts', $params['id']);
 		if ($post) {
 			Flash::message('Пост успешно удален!', 'success');
 		} else {
