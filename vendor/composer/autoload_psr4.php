@@ -10,6 +10,7 @@ return array(
     'MyComponents\\' => array($baseDir . '/app/components'),
     'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
     'Kint\\' => array($vendorDir . '/kint-php/kint/src'),
+    'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Controllers\\' => array($baseDir . '/app/controllers'),
     'Aura\\SqlQuery\\' => array($vendorDir . '/aura/sqlquery/src'),
 );

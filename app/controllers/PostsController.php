@@ -9,19 +9,20 @@ use MyComponents\QueryBuilder;
 use Tamtamchik\SimpleFlash\Flash;
 use MyComponents\Validator;
 use League\Plates\Engine;
+// use Kint\Kint;
 
 class PostsController 
 {
 	private $db;
-	private $id;
+	private $params;
 	private $views;
 	
-	function __construct($action, $id)
+	function __construct($action, $params)
 	{
 		$this->db = new QueryBuilder();
 		$this->views = new Engine('../app/views');
 
-		$this->id = $id;
+		$this->params = $params;
 		$this->$action();
 		
 	}
@@ -30,16 +31,13 @@ class PostsController
 	{
 
 		$posts = $this->db->getAll('posts');
-		
 		echo $this->views->render('index', ['posts' => $posts] );
-		// FlashMessages::cleanStatus();
 	}
 
 	public function create()
 	{
 
 		echo $this->views->render('create');
-		// FlashMessages::cleanStatus();
 	}
 
 	public function new()
@@ -70,14 +68,14 @@ class PostsController
 	public function show() 
 	{
 
-		$post = $this->db->getOne('posts', $this->id);
+		$post = $this->db->getOne('posts', $this->params['id']);
 		echo $this->views->render('show', ['post' => $post] );		
 	}
 
 	public function edit()
 	{
 
-		$post = $this->db->getOne('posts', $this->id);
+		$post = $this->db->getOne('posts', $this->params['id']);
 		echo $this->views->render('edit', ['post' => $post] );
 		// FlashMessages::cleanStatus();
 	}
@@ -102,7 +100,7 @@ class PostsController
 	public function delete()
 	{
 
-		$post = $this->db->deleteOne('posts', $this->id);
+		$post = $this->db->deleteOne('posts', $this->params['id']);
 		if ($post) {
 			Flash::message('Пост успешно удален!', 'success');
 		} else {
@@ -116,8 +114,10 @@ class PostsController
 
 		echo $this->views->render('contacts');
 	}
+
 	public static function Error($numberError)
 	{
+		
 		$views = new Engine('../app/views');
 		echo $views->render($numberError);
 	}

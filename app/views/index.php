@@ -4,7 +4,7 @@
     <h1>All posts</h1>
     <?= flash()->display();?>
     <table class="table">
-      <a href="/create" class="btn btn-success">Add post</a>
+      <a href="/postcreate" class="btn btn-success">Add post</a>
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -16,10 +16,10 @@
         <?php foreach($posts as $post):?>
         <tr>
           <th scope="row"><?= $post['id'];?></th>
-          <td><a href="/postshow?id=<?= $post['id'];?>"><?= $post['title'];?></a></td>
+          <td><a href="/postshow/<?= $post['id'];?>"><?= $post['title'];?></a></td>
           <td>
-            <a href="/postedit?id=<?= $post['id'];?>" class="btn btn-warning">Edit</a>
-            <a href="/postdelete?id=<?= $post['id'];?>" 
+            <a href="/postedit/<?= $post['id'];?>" class="btn btn-warning">Edit</a>
+            <a href="/postdelete/<?= $post['id'];?>" 
               class="btn btn-danger" 
               onclick="return confirm('Вы действительно ходите удалить запись?')">Delete
             </a>

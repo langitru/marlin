@@ -8,6 +8,7 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
 {
     public static $files = array (
         '3917c79c5052b270641b5a200963dbc2' => __DIR__ . '/..' . '/kint-php/kint/init.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '6157b075b923803e5ef157aeb43b83bd' => __DIR__ . '/..' . '/tamtamchik/simple-flash/src/function.php',
     );
 
@@ -27,6 +28,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'K' => 
         array (
             'Kint\\' => 5,
+        ),
+        'F' => 
+        array (
+            'FastRoute\\' => 10,
         ),
         'C' => 
         array (
@@ -54,6 +59,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
+        'FastRoute\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
         'Controllers\\' => 
         array (

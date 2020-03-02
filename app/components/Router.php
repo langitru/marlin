@@ -3,71 +3,67 @@
 /**
  Router   - компонент для маршрутизации запросов пользователя;
 
- $routes  - ассоциативный массив с маршрутами;
  
  */
-
-// include __DIR__ . '/../helpers/dd.php'; 
-
-
 
 namespace MyComponents;
 
 use Controllers\PostsController;
+use FastRoute;
 
 class Router 
 {
-	private $routes = 
-			[
-			  '/' => 'index', // где '/'- это запрос пользователя, а 'index' - это экшн который будет бызван в контроллере
-			  '/home' => 'index',
-			  '/create' => 'create',
-			  '/postnew' => 'new',
-			  '/postshow' => 'show',
-			  '/postedit' => 'edit',
-			  '/postupdate' => 'update',
-			  '/postdelete' => 'delete',
-			  '/contacts' => 'contacts',
-			];
+	// private 
 
 	public function __construct()
 	{
 
-		$this->checkURI();
-	}
-
-	public function checkURI()
-	{
-		$id = NULL;
-		$route = $_SERVER['REQUEST_URI'];
-
-		// проверяем наличие GET параметров в запросе пользователя
-		// если есть, значит обрабатываем GET параметр
-		if ($_SERVER['QUERY_STRING']) 
-		{	
-			parse_str($_SERVER['QUERY_STRING'], $get_var);
-			$id = $get_var['id'];
-			$route =  substr($route, 0, strpos($route, "?"));
+		$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+	    $r->addRoute('GET', '/', 'index');
+	    $r->addRoute('GET', '/home', 'index');
+	    $r->addRoute('GET', '/contacts', 'contacts');
+	    $r->addRoute('GET', '/postcreate', 'create');
+	    $r->addRoute('GET', '/postshow/{id:\d+}', 'show');
+	    $r->addRoute('GET', '/postedit/{id:\d+}', 'edit');
+	    $r->addRoute('POST', '/postnew', 'new');
+	    $r->addRoute('POST', '/postupdate', 'update');
+	    $r->addRoute('GET', '/postdelete/{id:\d+}', 'delete');
 
 
-			/* этот кусок кода еще не закончен, он нужен если нам нужно получить много параметров ид GET запроса
-			 * В качестве разделителей используем & */
-			// $tok = strtok($_SERVER['QUERY_STRING'], "&");
-			// $params = [];
-			// while ($tok !== false) {
-			//     echo "$tok<br />";
-			//     $tok = strtok("&");
-			// }
 
+	    // {id} must be a number (\d+)
+	    // $r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
+	    // The /{title} suffix is optional
+	    // $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
+	});
+		// Fetch method and URI from somewhere
+		$httpMethod = $_SERVER['REQUEST_METHOD'];
+		$uri = $_SERVER['REQUEST_URI'];
 
-			// die;
+		// Strip query string (?foo=bar) and decode URI
+		if (false !== $pos = strpos($uri, '?')) {
+		    $uri = substr($uri, 0, $pos);
 		}
-		if (array_key_exists($route, $this->routes)){
-		  	$PostsController = new PostsController($this->routes[$route], $id);
-		  	exit;
-		} else {
-			PostsController::Error('404');
-		}		
+		$uri = rawurldecode($uri);
+
+		$routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+		switch ($routeInfo[0]) {
+		    case FastRoute\Dispatcher::NOT_FOUND:
+		        // ... 404 Not Found
+		    	PostsController::Error('404');
+		        break;
+		    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+		        $allowedMethods = $routeInfo[1];
+		        // ... 405 Method Not Allowed
+		        PostsController::Error('405');
+		        break;
+		    case FastRoute\Dispatcher::FOUND:
+		        $handler = $routeInfo[1];
+		        $vars = $routeInfo[2];
+		        // ... call $handler with $vars
+		        new PostsController($handler, $vars);
+		        break;
+		}
 	}
 }
 
