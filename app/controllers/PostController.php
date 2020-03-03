@@ -10,25 +10,28 @@ use Tamtamchik\SimpleFlash\Flash;
 use MyComponents\Validator;
 use League\Plates\Engine;
 // use Kint\Kint;
+// use PDO;
 
-class PostsController 
+class PostController 
 {
 	private $db;
 	private $params;
 	private $views;
+	private $auth;
 	
 	function __construct()
 	{
 
 		$this->db = new QueryBuilder();
+		$this->auth = new \Delight\Auth\Auth($this->db->getPDO());
 		$this->views = new Engine('../app/views');
 	}
 
 	public function index()
 	{
-
+		$username = $this->auth->getUsername();
 		$posts = $this->db->getAll('posts');
-		echo $this->views->render('index', ['posts' => $posts] );
+		echo $this->views->render('index', ['posts' => $posts, 'username' => $username] );
 	}
 
 	public function create()
@@ -57,7 +60,7 @@ class PostsController
 			header('location: /');
 		} else {
 			Flash::message('Заголовок должен быть длинной не менне 5 символов!', 'warning');
-			header("location: /create");
+			header("location: /postcreate");
 		}
 
 	}
@@ -117,4 +120,5 @@ class PostsController
 		$views = new Engine('../app/views');
 		echo $views->render($numberError);
 	}
+
 }

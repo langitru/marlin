@@ -1,6 +1,6 @@
 <?php $this->layout('layout', ['title' => 'All Posts']) ?>
 
-
+    <?= $username;?>
     <h1>All posts</h1>
     <?= flash()->display();?>
     <table class="table">

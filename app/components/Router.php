@@ -8,7 +8,7 @@
 
 namespace MyComponents;
 
-// use Controllers\PostsController;
+use Controllers\PostController;
 use FastRoute;
 
 class Router 
@@ -19,15 +19,20 @@ class Router
 	{
 
 		$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-	    $r->addRoute('GET', '/',                    ['Controllers\PostsController', 'index']);
-	    $r->addRoute('GET', '/home',                ['Controllers\PostsController', 'index']);
-	    $r->addRoute('GET', '/contacts',            ['Controllers\PostsController', 'contacts']);
-	    $r->addRoute('GET', '/postcreate',          ['Controllers\PostsController', 'create']);
-	    $r->addRoute('GET', '/postshow/{id:\d+}',   ['Controllers\PostsController', 'show']);
-	    $r->addRoute('GET', '/postedit/{id:\d+}',   ['Controllers\PostsController', 'edit']);
-	    $r->addRoute('POST','/postnew',             ['Controllers\PostsController', 'new']);
-	    $r->addRoute('POST','/postupdate',          ['Controllers\PostsController', 'update']);
-	    $r->addRoute('GET', '/postdelete/{id:\d+}', ['Controllers\PostsController', 'delete']);
+	    $r->addRoute('GET', '/',                    ['Controllers\PostController', 'index']);
+	    $r->addRoute('GET', '/signup',              ['Controllers\UserController', 'signup']);
+	    $r->addRoute('POST','/signup',              ['Controllers\UserController', 'signupHandler']);
+	    $r->addRoute('GET', '/signin',              ['Controllers\UserController', 'signin']);
+	    $r->addRoute('POST','/signin',              ['Controllers\UserController', 'signinHandler']);
+	    $r->addRoute('GET', '/logout',              ['Controllers\UserController', 'logout']);
+	    $r->addRoute('GET', '/verify_email',        ['Controllers\UserController', 'verify_email']);
+	    $r->addRoute('GET', '/contacts',            ['Controllers\PostController', 'contacts']);
+	    $r->addRoute('GET', '/postcreate',          ['Controllers\PostController', 'create']);
+	    $r->addRoute('GET', '/postshow/{id:\d+}',   ['Controllers\PostController', 'show']);
+	    $r->addRoute('GET', '/postedit/{id:\d+}',   ['Controllers\PostController', 'edit']);
+	    $r->addRoute('POST','/postnew',             ['Controllers\PostController', 'new']);
+	    $r->addRoute('POST','/postupdate',          ['Controllers\PostController', 'update']);
+	    $r->addRoute('GET', '/postdelete/{id:\d+}', ['Controllers\PostController', 'delete']);
 
 
 
@@ -50,17 +55,16 @@ class Router
 		switch ($routeInfo[0]) {
 		    case FastRoute\Dispatcher::NOT_FOUND:
 		        // ... 404 Not Found
-		    	PostsController::Error('404');
+		    	PostController::Error('404');
 		        break;
 		    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
 		        $allowedMethods = $routeInfo[1];
 		        // ... 405 Method Not Allowed
-		        PostsController::Error('405');
+		        PostController::Error('405');
 		        break;
 		    case FastRoute\Dispatcher::FOUND:
 		        $handler = $routeInfo[1];
 		        $vars = $routeInfo[2];
-		        
 		        // ... call $handler with $vars
 
 		        call_user_func([new $handler[0], $handler[1]], $vars);		        

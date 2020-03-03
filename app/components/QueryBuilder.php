@@ -170,4 +170,8 @@ class QueryBuilder
 		// 	return false;	
 		// }
 	}	
+	public function getPDO()
+	{
+		return $this->pdo;	
+	}
 }
