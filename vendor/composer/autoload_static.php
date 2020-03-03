@@ -33,6 +33,14 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         array (
             'FastRoute\\' => 10,
         ),
+        'D' => 
+        array (
+            'Delight\\Http\\' => 13,
+            'Delight\\Db\\' => 11,
+            'Delight\\Cookie\\' => 15,
+            'Delight\\Base64\\' => 15,
+            'Delight\\Auth\\' => 13,
+        ),
         'C' => 
         array (
             'Controllers\\' => 12,
@@ -63,6 +71,26 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Delight\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/http/src',
+        ),
+        'Delight\\Db\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/db/src',
+        ),
+        'Delight\\Cookie\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/cookie/src',
+        ),
+        'Delight\\Base64\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/base64/src',
+        ),
+        'Delight\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/auth/src',
         ),
         'Controllers\\' => 
         array (
