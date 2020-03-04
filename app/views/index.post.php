@@ -1,6 +1,11 @@
-<?php $this->layout('layout', ['title' => 'All Posts']) ?>
+<?php 
 
-    <?= $username;?>
+  $this->layout('layout', ['title' => 'All Posts', 'username' => $username]);
+  // $this->layout('layout', ['vars' => ['title' => 'All Posts', 'username1' => $username]]);
+
+ ?>
+
+    
     <h1>All posts</h1>
     <?= flash()->display();?>
     <table class="table">

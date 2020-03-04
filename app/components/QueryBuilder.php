@@ -19,14 +19,12 @@ class QueryBuilder
 	private $pdo;
 	private $queryFactory;
 
-	public function __construct()
+	public function __construct(QueryFactory $QueryFactory, PDO $pdo)
 	{
 		
-		$this->queryFactory = new QueryFactory('mysql'); 
-		$this->pdo = new PDO(
-			"mysql:host=localhost;dbname=marlin_module_1;charset=utf8;", 
-			"root", 
-			"");
+		$this->queryFactory = $QueryFactory; 
+		// $this->queryFactory = QueryFactory('mysql');
+		$this->pdo = $pdo;
 	}
 	
 	public function getAll($table)

@@ -9,6 +9,7 @@ use MyComponents\QueryBuilder;
 use Tamtamchik\SimpleFlash\Flash;
 use MyComponents\Validator;
 use League\Plates\Engine;
+use Delight\Auth\Auth;
 // use Kint\Kint;
 // use PDO;
 
@@ -19,25 +20,26 @@ class PostController
 	private $views;
 	private $auth;
 	
-	function __construct()
+	function __construct(QueryBuilder $qb, Auth $auth, Engine $engine)
 	{
 
-		$this->db = new QueryBuilder();
-		$this->auth = new \Delight\Auth\Auth($this->db->getPDO());
-		$this->views = new Engine('../app/views');
+		$this->db = $qb;
+		$this->auth = $auth;
+		$this->views = $engine;
 	}
 
 	public function index()
 	{
+
 		$username = $this->auth->getUsername();
 		$posts = $this->db->getAll('posts');
-		echo $this->views->render('index', ['posts' => $posts, 'username' => $username] );
+		echo $this->views->render('index.post', ['posts' => $posts, 'username' => $username] );
 	}
 
 	public function create()
 	{
 
-		echo $this->views->render('create');
+		echo $this->views->render('create.post');
 	}
 
 	public function new()
@@ -67,16 +69,16 @@ class PostController
 
 	public function show($params) 
 	{
-
+		d($params);
 		$post = $this->db->getOne('posts', $params['id']);
-		echo $this->views->render('show', ['post' => $post] );		
+		echo $this->views->render('show.post', ['post' => $post] );		
 	}
 
 	public function edit($params)
 	{
 
 		$post = $this->db->getOne('posts', $params['id']);
-		echo $this->views->render('edit', ['post' => $post] );
+		echo $this->views->render('edit.post', ['post' => $post] );
 	}
 
 	public function update()
@@ -111,14 +113,14 @@ class PostController
 	public function contacts()
 	{
 
-		echo $this->views->render('contacts');
+		echo $this->views->render('contacts.post');
 	}
 
 	public static function Error($numberError)
 	{
 		
 		$views = new Engine('../app/views');
-		echo $views->render($numberError);
+		echo $views->render($numberError.'.post');
 	}
 
 }

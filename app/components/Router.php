@@ -10,6 +10,13 @@ namespace MyComponents;
 
 use Controllers\PostController;
 use FastRoute;
+use DI\ContainerBuilder;
+use Delight\Auth\Auth;
+use League\Plates\Engine;
+use PDO;
+use Aura\SqlQuery\QueryFactory;
+
+
 
 class Router 
 {
@@ -17,6 +24,7 @@ class Router
 
 	public function __construct()
 	{
+
 
 		$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 	    $r->addRoute('GET', '/',                    ['Controllers\PostController', 'index']);
@@ -67,7 +75,33 @@ class Router
 		        $vars = $routeInfo[2];
 		        // ... call $handler with $vars
 
-		        call_user_func([new $handler[0], $handler[1]], $vars);		        
+
+
+		        $builder = new ContainerBuilder();
+
+		        $builder->addDefinitions([
+		        	Engine::class => function(){
+		        		return new Engine('../app/views');
+		        	},
+		        	QueryFactory::class => function(){
+		        		return new QueryFactory('mysql');
+		        	},
+		        	PDO::class => function(){
+		        		return new PDO("mysql:host=localhost;dbname=marlin_module_1;charset=utf8;", "root", "");
+		        	},
+		        	Auth::class => function($container){
+		        		return new Auth($container->get('PDO'));
+		        	},
+		        ]);
+
+				$container = $builder->build();
+
+		        // d($container);die;
+
+				$container->call($handler,  $vars);
+				// $container->call( $handler, ['id' => '12', 'name' => 'andrey']);
+
+		        // call_user_func([new $handler[0], $handler[1]], $vars);		        
 		        break;
 		}
 	}

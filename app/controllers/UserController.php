@@ -9,6 +9,7 @@ use MyComponents\QueryBuilder;
 use Tamtamchik\SimpleFlash\Flash;
 // use MyComponents\Validator;
 use League\Plates\Engine;
+use Delight\Auth\Auth;
 // use Kint\Kint;
 
 class UserController 
@@ -18,12 +19,13 @@ class UserController
 	private $views;
 	private $auth;
 	
-	function __construct()
+	function __construct(QueryBuilder $qb, Auth $auth, Engine $engine)
 	{
 
-		$this->db = new QueryBuilder();
-		$this->auth = new \Delight\Auth\Auth($this->db->getPDO());
-		$this->views = new Engine('../app/views');
+		$this->db = $qb;
+		$this->auth = $auth;
+		// $this->auth = new Auth($this->db->getPDO());
+		$this->views = $engine;
 	}
 
 
@@ -31,7 +33,7 @@ class UserController
 	public function signup()
 	{
 
-		echo $this->views->render('signup');
+		echo $this->views->render('signup.user');
 	}
 
 	public function signupHandler()
@@ -64,7 +66,7 @@ class UserController
 
 	public function signin()
 	{
-		echo $this->views->render('signin');
+		echo $this->views->render('signin.user');
 	}
 
 	public function signinHandler()
