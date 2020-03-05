@@ -9,6 +9,7 @@
 namespace MyComponents;
 
 use Controllers\PostController;
+use Config\Config;
 use FastRoute;
 use DI\ContainerBuilder;
 use Delight\Auth\Auth;
@@ -20,8 +21,6 @@ use Aura\SqlQuery\QueryFactory;
 
 class Router 
 {
-	// private 
-
 	public function __construct()
 	{
 
@@ -75,8 +74,6 @@ class Router
 		        $vars = $routeInfo[2];
 		        // ... call $handler with $vars
 
-
-
 		        $builder = new ContainerBuilder();
 
 		        $builder->addDefinitions([
@@ -87,7 +84,7 @@ class Router
 		        		return new QueryFactory('mysql');
 		        	},
 		        	PDO::class => function(){
-		        		return new PDO("mysql:host=localhost;dbname=marlin_module_1;charset=utf8;", "root", "");
+		        		return new PDO(Config::getDB(), Config::getUser(), Config::getPWD());
 		        	},
 		        	Auth::class => function($container){
 		        		return new Auth($container->get('PDO'));
@@ -96,12 +93,7 @@ class Router
 
 				$container = $builder->build();
 
-		        // d($container);die;
-
-				$container->call($handler,  $vars);
-				// $container->call( $handler, ['id' => '12', 'name' => 'andrey']);
-
-		        // call_user_func([new $handler[0], $handler[1]], $vars);		        
+				$container->call($handler, [$vars]);
 		        break;
 		}
 	}

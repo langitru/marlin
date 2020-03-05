@@ -25,5 +25,6 @@ return array(
     'Delight\\Auth\\' => array($vendorDir . '/delight-im/auth/src'),
     'DI\\' => array($vendorDir . '/php-di/php-di/src'),
     'Controllers\\' => array($baseDir . '/app/controllers'),
+    'Config\\' => array($baseDir . '/config'),
     'Aura\\SqlQuery\\' => array($vendorDir . '/aura/sqlquery/src'),
 );

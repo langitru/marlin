@@ -63,6 +63,7 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'C' => 
         array (
             'Controllers\\' => 12,
+            'Config\\' => 7,
         ),
         'A' => 
         array (
@@ -146,6 +147,10 @@ class ComposerStaticInit1eeb8866ec0100e5627be4c2f4f00a0f
         'Controllers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/controllers',
+        ),
+        'Config\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/config',
         ),
         'Aura\\SqlQuery\\' => 
         array (
